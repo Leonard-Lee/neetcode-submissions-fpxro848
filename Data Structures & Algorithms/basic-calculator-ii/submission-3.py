@@ -1,0 +1,30 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        stack = []
+        num = 0
+        op = "+"
+
+        s = s.replace(" ", "")
+        for i in range(len(s)):
+            if s[i].isdigit():
+                num = num * 10 + int(s[i])
+
+            if not s[i].isdigit() or i == len(s) - 1:
+                if op == "+":
+                    print("append for + :" +str(num))
+                    stack.append(num)
+                elif op == "-":
+                    stack.append(-num)
+                elif op == "*":
+                    stack.append(stack.pop() * num)
+                elif op == "/":
+                    stack.append(int(stack.pop() / num))
+                
+                num = 0
+                op = s[i]
+        
+        res = 0
+        for n in stack:
+            res += n
+
+        return res
